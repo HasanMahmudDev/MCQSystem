@@ -1,0 +1,58 @@
+@page
+@model MCQSystem.WebUI.Pages.Admin.Results.IndexModel
+@{
+    ViewData["Title"] = "Results";
+}
+
+<div class="page-heading">
+    <div class="page-heading-copy">
+        <span class="page-icon"><i class="bi bi-clipboard-data" aria-hidden="true"></i></span>
+        <div>
+            <p class="eyebrow mb-1">Assessment</p>
+            <h1 class="h3 mb-1">Results</h1>
+            <p class="text-muted mb-0">Search, review, and export submitted exam results.</p>
+        </div>
+    </div>
+    <div class="heading-actions">
+        <a class="btn btn-outline-secondary btn-sm" asp-page-handler="Export"><i class="bi bi-download" aria-hidden="true"></i> Export CSV</a>
+    </div>
+</div>
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2 class="h5 mb-1 section-title"><i class="bi bi-table" aria-hidden="true"></i><span>Result List</span></h2>
+            <p class="text-muted mb-0">@Model.Items.Count results found.</p>
+        </div>
+        <form method="get"><input class="form-control form-control-sm table-search" asp-for="Search" type="search" placeholder="Search results" /></form>
+    </div>
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead><tr><th>Student</th><th>Exam</th><th>Score</th><th>Accuracy</th><th>Status</th><th>Submitted</th></tr></thead>
+            <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td class="fw-semibold">@item.UserName</td>
+                    <td>@item.ExamTitle</td>
+                    <td>@item.ObtainedMarks / @item.TotalMarks</td>
+                    <td>@item.CorrectAnswers correct · @item.WrongAnswers wrong</td>
+                    <td><span class="badge @(item.Passed ? "text-bg-success" : "text-bg-danger")">@(item.Passed ? "Passed" : "Failed")</span></td>
+                    <td>@item.SubmittedAtUtc.ToLocalTime().ToString("MMM dd, yyyy HH:mm")</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <nav class="d-flex justify-content-end mt-3" aria-label="Result pages">
+        <ul class="pagination mb-0">
+            <li class="page-item @(Model.PageNumber <= 1 ? "disabled" : "")">
+                <a class="page-link" asp-route-search="@Model.Search" asp-route-pageNumber="@(Model.PageNumber - 1)">Previous</a>
+            </li>
+            <li class="page-item disabled"><span class="page-link">Page @Model.PageNumber of @Model.TotalPages</span></li>
+            <li class="page-item @(Model.PageNumber >= Model.TotalPages ? "disabled" : "")">
+                <a class="page-link" asp-route-search="@Model.Search" asp-route-pageNumber="@(Model.PageNumber + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+</section>

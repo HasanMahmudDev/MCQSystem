@@ -1,0 +1,36 @@
+@page
+@model MCQSystem.WebUI.Pages.Student.Profile.IndexModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="page-heading">
+    <div class="page-heading-copy">
+        <span class="page-icon"><i class="bi bi-person-badge" aria-hidden="true"></i></span>
+        <div>
+            <p class="eyebrow mb-1">Account</p>
+            <h1 class="h3 mb-1">Profile</h1>
+            <p class="text-muted mb-0">Your student account details.</p>
+        </div>
+    </div>
+</div>
+
+<section class="panel">
+    @if (Model.CurrentUser is null)
+    {
+        <p class="mb-0">Profile was not found.</p>
+    }
+    else
+    {
+        <div class="d-flex align-items-center gap-3 mb-4">
+            <img class="avatar-img avatar-md" src="~/adminHMD/assets/images/avatar/avatar.jpg" alt="@Model.CurrentUser.FullName">
+            <div>
+                <h2 class="h5 mb-1">@Model.CurrentUser.FullName</h2>
+                <p class="text-muted mb-0">@Model.CurrentUser.Email</p>
+            </div>
+        </div>
+        <div class="mini-stat"><span>Roles</span><strong>@string.Join(", ", Model.CurrentUser.Roles)</strong></div>
+        <div class="mini-stat"><span>Status</span><strong>@(Model.CurrentUser.IsActive ? "Active" : "Disabled")</strong></div>
+        <div class="mini-stat"><span>Last login</span><strong>@(Model.CurrentUser.LastLoginAtUtc?.ToLocalTime().ToString("MMM dd, yyyy HH:mm") ?? "Never")</strong></div>
+    }
+</section>

@@ -1,0 +1,12 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: mcqsystem-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mcqsystem_mongo_data:/data/db
+
+volumes:
+  mcqsystem_mongo_data:

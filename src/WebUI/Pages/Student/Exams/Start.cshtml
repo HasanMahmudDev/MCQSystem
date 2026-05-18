@@ -1,0 +1,77 @@
+@page "{examId}"
+@model MCQSystem.WebUI.Pages.Student.Exams.StartModel
+@{
+    ViewData["Title"] = Model.Attempt?.Title ?? "Start Exam";
+}
+
+@if (Model.Attempt is not null)
+{
+    <div class="page-heading">
+        <div class="page-heading-copy">
+            <span class="page-icon"><i class="bi bi-play-circle" aria-hidden="true"></i></span>
+            <div>
+                <p class="eyebrow mb-1">Exam Started</p>
+                <h1 class="h3 mb-1">@Model.Attempt.Title</h1>
+                <p class="text-muted mb-0">@Model.Attempt.Description</p>
+            </div>
+        </div>
+        <div class="heading-actions d-flex align-items-center gap-2">
+            <span class="badge text-bg-light" data-question-indicator></span>
+            <span class="timer-pill"><i class="bi bi-stopwatch" aria-hidden="true"></i><span data-exam-timer data-seconds="@(Model.Attempt.DurationMinutes * 60)"></span></span>
+        </div>
+    </div>
+
+    <form method="post" data-exam-form>
+        <input type="hidden" asp-for="ExamId" />
+        <input type="hidden" asp-for="StartedAtUtc" />
+        @foreach (var questionId in Model.QuestionIds)
+        {
+            <input type="hidden" name="QuestionIds" value="@questionId" />
+        }
+
+        @{
+            var number = 1;
+        }
+        @foreach (var question in Model.Attempt.Questions)
+        {
+            <article class="panel mb-3 @(number > 1 ? "d-none" : "")" data-question-panel>
+                <div class="panel-header">
+                    <div>
+                        <h2 class="h5 mb-1 section-title"><i class="bi bi-question-circle" aria-hidden="true"></i><span>Question @number</span></h2>
+                        <p class="text-muted mb-0">@question.Marks mark(s)</p>
+                    </div>
+                </div>
+                <p class="fw-semibold">@question.Text</p>
+                <div class="row g-2">
+                    @foreach (var option in question.Options)
+                    {
+                        var optionId = $"{question.Id}_{option.Key}";
+                        <div class="col-12 col-md-6">
+                            <label class="mcq-option d-flex align-items-start gap-2" for="@optionId">
+                                <input class="form-check-input mt-1" id="@optionId" type="radio" name="Answers[@question.Id]" value="@option.Key" />
+                                <span><strong>@option.Key.</strong> @option.Text</span>
+                            </label>
+                        </div>
+                    }
+                </div>
+            </article>
+            number++;
+        }
+
+        <div class="panel">
+            <div class="d-flex justify-content-between gap-2 flex-wrap">
+                <a class="btn btn-outline-secondary" asp-page="/Student/Exams/Index">Cancel</a>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-light" type="button" data-question-prev disabled><i class="bi bi-arrow-left" aria-hidden="true"></i> Previous</button>
+                    <button class="btn btn-light" type="button" data-question-next><i class="bi bi-arrow-right" aria-hidden="true"></i> Next</button>
+                    <button class="btn btn-primary" type="submit"><i class="bi bi-send" aria-hidden="true"></i> Submit Exam</button>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+@section Scripts {
+    <script src="~/js/exam-navigation.js" asp-append-version="true"></script>
+    <script src="~/js/exam-timer.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,40 @@
+@page
+@model MCQSystem.WebUI.Pages.Account.LoginModel
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Login";
+}
+
+<form method="post" class="needs-validation" novalidate>
+    <input type="hidden" asp-for="ReturnUrl" />
+    <div class="mb-4">
+        <p class="eyebrow mb-1">Secure Access</p>
+        <h1 class="h3 mb-1">Login</h1>
+        <p class="text-muted mb-0">Sign in as admin or student to continue.</p>
+    </div>
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Input.Email"></label>
+        <input class="form-control" asp-for="Input.Email" type="email" required />
+        <span class="text-danger small" asp-validation-for="Input.Email"></span>
+    </div>
+    <div class="mb-3">
+        <div class="d-flex justify-content-between">
+            <label class="form-label" asp-for="Input.Password"></label>
+            <a class="small" asp-page="/Account/ForgotPassword">Forgot password?</a>
+        </div>
+        <input class="form-control" asp-for="Input.Password" type="password" minlength="6" required />
+        <span class="text-danger small" asp-validation-for="Input.Password"></span>
+    </div>
+    <div class="form-check mb-4">
+        <input class="form-check-input" asp-for="Input.RememberMe" />
+        <label class="form-check-label" asp-for="Input.RememberMe"></label>
+    </div>
+    <button class="btn btn-primary w-100" type="submit"><i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Sign In</button>
+</form>
+
+<div class="auth-footer">New here? <a asp-page="/Account/Register">Create an account</a></div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

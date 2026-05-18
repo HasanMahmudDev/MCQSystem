@@ -1,0 +1,11 @@
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Domain\bin\Debug\net10.0\MCQSystem.Domain.deps.json
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Domain\bin\Debug\net10.0\MCQSystem.Domain.dll
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Domain\bin\Debug\net10.0\MCQSystem.Domain.pdb
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Domain\obj\Debug\net10.0\MCQSystem.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Domain\obj\Debug\net10.0\MCQSystem.Domain.AssemblyInfoInputs.cache
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Domain\obj\Debug\net10.0\MCQSystem.Domain.AssemblyInfo.cs
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Domain\obj\Debug\net10.0\MCQSystem.Domain.csproj.CoreCompileInputs.cache
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Domain\obj\Debug\net10.0\MCQSystem.Domain.dll
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Domain\obj\Debug\net10.0\refint\MCQSystem.Domain.dll
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Domain\obj\Debug\net10.0\MCQSystem.Domain.pdb
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Domain\obj\Debug\net10.0\ref\MCQSystem.Domain.dll

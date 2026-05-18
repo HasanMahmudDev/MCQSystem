@@ -1,0 +1,17 @@
+@model (int PageNumber, int TotalPages, string? Search, string? EditId)
+@{
+    var disabledPrev = Model.PageNumber <= 1 ? "disabled" : "";
+    var disabledNext = Model.PageNumber >= Model.TotalPages ? "disabled" : "";
+}
+
+<nav class="d-flex justify-content-end mt-3" aria-label="Pagination">
+    <ul class="pagination mb-0">
+        <li class="page-item @disabledPrev">
+            <a class="page-link" asp-route-search="@Model.Search" asp-route-editId="@Model.EditId" asp-route-pageNumber="@(Model.PageNumber - 1)">Previous</a>
+        </li>
+        <li class="page-item disabled"><span class="page-link">Page @Model.PageNumber of @Model.TotalPages</span></li>
+        <li class="page-item @disabledNext">
+            <a class="page-link" asp-route-search="@Model.Search" asp-route-editId="@Model.EditId" asp-route-pageNumber="@(Model.PageNumber + 1)">Next</a>
+        </li>
+    </ul>
+</nav>

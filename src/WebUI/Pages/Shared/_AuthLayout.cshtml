@@ -1,0 +1,46 @@
+@{
+    var title = ViewData["Title"] as string ?? "Secure Access";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="MCQ Examination System authentication" />
+    <title>@title | MCQ System</title>
+    <link rel="stylesheet" href="~/adminHMD/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/adminHMD/assets/vendors/bootstrap-icons/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/adminHMD/assets/css/style.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="auth-body" data-toast="@(TempData["Toast"] as string)">
+    <button class="icon-button theme-toggle auth-theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme" title="Switch color theme">
+        <i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i>
+    </button>
+
+    <main class="auth-page">
+        <section class="auth-card">
+            <a class="auth-brand" asp-page="/Index">
+                <span class="brand-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></span>
+                <span><strong>MCQ System</strong><small>Secure examination workspace.</small></span>
+            </a>
+            <div class="auth-visual">
+                <img src="~/adminHMD/assets/images/png/dasher-ui-bootstrap-5.jpg" alt="adminHMD dashboard interface">
+            </div>
+
+            @if (TempData["Toast"] is string toast)
+            {
+                <div class="alert alert-success" role="alert">@toast</div>
+            }
+
+            @RenderBody()
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/adminHMD/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/adminHMD/assets/js/main.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

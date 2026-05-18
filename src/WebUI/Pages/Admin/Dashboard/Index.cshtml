@@ -1,0 +1,144 @@
+@page
+@model MCQSystem.WebUI.Pages.Admin.Dashboard.IndexModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="page-heading">
+    <div class="page-heading-copy">
+        <span class="page-icon"><i class="bi bi-speedometer2" aria-hidden="true"></i></span>
+        <div>
+            <p class="eyebrow mb-1">Overview</p>
+            <h1 class="h3 mb-1">Admin Dashboard</h1>
+            <p class="text-muted mb-0">Monitor exams, question bank, users, results, and performance trends.</p>
+        </div>
+    </div>
+    <div class="heading-actions">
+        <a class="btn btn-outline-secondary btn-sm" asp-page="/Admin/Results/Index" asp-page-handler="Export"><i class="bi bi-download" aria-hidden="true"></i> Export Results</a>
+        <a class="btn btn-primary btn-sm" asp-page="/Admin/Exams/Index"><i class="bi bi-file-earmark-plus" aria-hidden="true"></i> Create Exam</a>
+    </div>
+</div>
+
+<section class="row g-3 mt-1" aria-label="Dashboard metrics">
+    <div class="col-12 col-sm-6 col-xl-3">
+        <article class="metric-card metric-primary">
+            <div class="metric-top"><span class="metric-label">Users</span><span class="metric-icon"><i class="bi bi-people" aria-hidden="true"></i></span></div>
+            <div class="metric-value">@Model.Dashboard.TotalUsers</div>
+            <div class="metric-meta"><span class="text-success">Active</span><span>registered accounts</span></div>
+        </article>
+    </div>
+    <div class="col-12 col-sm-6 col-xl-3">
+        <article class="metric-card metric-success">
+            <div class="metric-top"><span class="metric-label">Published Exams</span><span class="metric-icon"><i class="bi bi-journal-check" aria-hidden="true"></i></span></div>
+            <div class="metric-value">@Model.Dashboard.PublishedExams</div>
+            <div class="metric-meta"><span class="text-success">Open</span><span>available to students</span></div>
+        </article>
+    </div>
+    <div class="col-12 col-sm-6 col-xl-3">
+        <article class="metric-card metric-warning">
+            <div class="metric-top"><span class="metric-label">Questions</span><span class="metric-icon"><i class="bi bi-question-circle" aria-hidden="true"></i></span></div>
+            <div class="metric-value">@Model.Dashboard.QuestionCount</div>
+            <div class="metric-meta"><span>MCQ</span><span>four-option bank</span></div>
+        </article>
+    </div>
+    <div class="col-12 col-sm-6 col-xl-3">
+        <article class="metric-card metric-danger">
+            <div class="metric-top"><span class="metric-label">Avg Score</span><span class="metric-icon"><i class="bi bi-award" aria-hidden="true"></i></span></div>
+            <div class="metric-value">@Model.Dashboard.AverageScore%</div>
+            <div class="metric-meta"><span>@Model.Dashboard.ResultsCount results</span><span>submitted</span></div>
+        </article>
+    </div>
+</section>
+
+<section class="row g-3 mt-1">
+    <div class="col-12 col-xl-8">
+        <div class="panel">
+            <div class="panel-header">
+                <div>
+                    <h2 class="h5 mb-1 section-title"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i><span>Exam Submissions</span></h2>
+                    <p class="text-muted mb-0">Monthly submission volume across the platform.</p>
+                </div>
+                <a class="btn btn-light btn-sm" asp-page="/Admin/Analytics/Index">View Analytics</a>
+            </div>
+            <div class="chart-bars" aria-label="Exam submission chart">
+                @foreach (var point in Model.Dashboard.SubmissionTrend)
+                {
+                    <div class="chart-column @point.BarClass"><span></span><small>@point.Label (@point.Value)</small></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-xl-4">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <h2 class="h5 mb-1 section-title"><i class="bi bi-activity" aria-hidden="true"></i><span>Recent Activities</span></h2>
+                    <p class="text-muted mb-0">Latest exam submissions and outcomes.</p>
+                </div>
+            </div>
+            <div class="activity-list">
+                @foreach (var activity in Model.Dashboard.RecentActivities)
+                {
+                    <div class="activity-item">
+                        <span class="activity-dot bg-@activity.Tone"></span>
+                        <div>
+                            <p class="mb-1 fw-semibold">@activity.Title</p>
+                            <p class="text-muted small mb-0">@activity.Description</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="row g-3 mt-1">
+    <div class="col-12 col-xl-7">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <h2 class="h5 mb-1 section-title"><i class="bi bi-clipboard-data" aria-hidden="true"></i><span>Recent Results</span></h2>
+                    <p class="text-muted mb-0">Latest exam submissions across the platform.</p>
+                </div>
+                <a class="btn btn-light btn-sm" asp-page="/Admin/Results/Index">View All</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead><tr><th>Student</th><th>Exam</th><th>Score</th><th>Status</th><th>Date</th></tr></thead>
+                    <tbody>
+                    @foreach (var result in Model.Dashboard.RecentResults)
+                    {
+                        <tr>
+                            <td class="fw-semibold">@result.UserName</td>
+                            <td>@result.ExamTitle</td>
+                            <td>@result.ObtainedMarks / @result.TotalMarks</td>
+                            <td><span class="badge @(result.Passed ? "text-bg-success" : "text-bg-danger")">@(result.Passed ? "Passed" : "Failed")</span></td>
+                            <td>@result.SubmittedAtUtc.ToLocalTime().ToString("MMM dd, yyyy")</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-xl-5">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <h2 class="h5 mb-1 section-title"><i class="bi bi-trophy" aria-hidden="true"></i><span>Leaderboard</span></h2>
+                    <p class="text-muted mb-0">Top scores from recent submissions.</p>
+                </div>
+            </div>
+            @foreach (var result in Model.Dashboard.Leaderboard)
+            {
+                <div class="mini-stat">
+                    <div>
+                        <p class="fw-semibold mb-0">@result.UserName</p>
+                        <p class="text-muted small mb-0">@result.ExamTitle</p>
+                    </div>
+                    <span class="badge text-bg-primary">@result.Percentage%</span>
+                </div>
+            }
+        </div>
+    </div>
+</section>

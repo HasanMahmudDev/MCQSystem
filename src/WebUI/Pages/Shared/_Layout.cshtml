@@ -1,0 +1,181 @@
+@using System.Security.Claims
+@{
+    var title = ViewData["Title"] as string ?? "MCQ Examination System";
+    var path = Context.Request.Path.Value?.ToLowerInvariant() ?? "/";
+    var displayName = User.Identity?.Name ?? "Guest";
+    var isAdmin = User.IsInRole(AppRoles.Admin);
+    var avatar = Url.Content("~/adminHMD/assets/images/avatar/avatar.jpg");
+
+    string Active(string prefix) => path.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) ? "active" : "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="MCQ Examination System" />
+    <title>@title | MCQ System</title>
+    <link rel="stylesheet" href="~/adminHMD/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/adminHMD/assets/vendors/bootstrap-icons/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/adminHMD/assets/css/style.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body data-toast="@(TempData["Toast"] as string)">
+    <div class="admin-shell">
+        <div class="sidebar-backdrop" data-sidebar-close></div>
+
+        <aside class="admin-sidebar" id="adminSidebar" aria-label="Main navigation">
+            <div class="sidebar-header">
+                <a class="brand-mark" asp-page="/Index" aria-label="MCQ dashboard">
+                    <span class="brand-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></span>
+                    <span class="brand-copy">
+                        <span class="brand-title">MCQ System</span>
+                        <span class="brand-subtitle">Examination Suite</span>
+                    </span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                @if (isAdmin)
+                {
+                    <a class="nav-link @Active("/admin/dashboard")" asp-page="/Admin/Dashboard/Index">
+                        <span class="nav-icon"><i class="bi bi-speedometer2" aria-hidden="true"></i></span>
+                        <span class="nav-text">Dashboard</span>
+                    </a>
+                    <a class="nav-link @Active("/admin/exams")" asp-page="/Admin/Exams/Index">
+                        <span class="nav-icon"><i class="bi bi-journal-check" aria-hidden="true"></i></span>
+                        <span class="nav-text">Exams</span>
+                    </a>
+                    <a class="nav-link @Active("/admin/questions")" asp-page="/Admin/Questions/Index">
+                        <span class="nav-icon"><i class="bi bi-question-circle" aria-hidden="true"></i></span>
+                        <span class="nav-text">Questions</span>
+                    </a>
+                    <a class="nav-link @Active("/admin/categories")" asp-page="/Admin/Categories/Index">
+                        <span class="nav-icon"><i class="bi bi-tags" aria-hidden="true"></i></span>
+                        <span class="nav-text">Categories</span>
+                    </a>
+                    <a class="nav-link @Active("/admin/users")" asp-page="/Admin/Users/Index">
+                        <span class="nav-icon"><i class="bi bi-people" aria-hidden="true"></i></span>
+                        <span class="nav-text">Users</span>
+                    </a>
+                    <a class="nav-link @Active("/admin/results")" asp-page="/Admin/Results/Index">
+                        <span class="nav-icon"><i class="bi bi-clipboard-data" aria-hidden="true"></i></span>
+                        <span class="nav-text">Results</span>
+                    </a>
+                    <a class="nav-link @Active("/admin/analytics")" asp-page="/Admin/Analytics/Index">
+                        <span class="nav-icon"><i class="bi bi-bar-chart-line" aria-hidden="true"></i></span>
+                        <span class="nav-text">Analytics</span>
+                    </a>
+                    <a class="nav-link @Active("/admin/settings")" asp-page="/Admin/Settings/Index">
+                        <span class="nav-icon"><i class="bi bi-gear" aria-hidden="true"></i></span>
+                        <span class="nav-text">Settings</span>
+                    </a>
+                }
+                else
+                {
+                    <a class="nav-link @Active("/student/exams")" asp-page="/Student/Exams/Index">
+                        <span class="nav-icon"><i class="bi bi-ui-checks-grid" aria-hidden="true"></i></span>
+                        <span class="nav-text">Exam List</span>
+                    </a>
+                    <a class="nav-link @Active("/student/history")" asp-page="/Student/History/Index">
+                        <span class="nav-icon"><i class="bi bi-clock-history" aria-hidden="true"></i></span>
+                        <span class="nav-text">History</span>
+                    </a>
+                    <a class="nav-link @Active("/student/leaderboard")" asp-page="/Student/Leaderboard/Index">
+                        <span class="nav-icon"><i class="bi bi-trophy" aria-hidden="true"></i></span>
+                        <span class="nav-text">Leaderboard</span>
+                    </a>
+                    <a class="nav-link @Active("/student/profile")" asp-page="/Student/Profile/Index">
+                        <span class="nav-icon"><i class="bi bi-person-badge" aria-hidden="true"></i></span>
+                        <span class="nav-text">Profile</span>
+                    </a>
+                }
+            </nav>
+
+            <div class="sidebar-user">
+                <img class="avatar-img avatar-md sidebar-user-avatar" src="@avatar" alt="@displayName">
+                <strong>@displayName</strong>
+                <small>@(isAdmin ? "Admin Workspace" : "Student Portal")</small>
+            </div>
+
+            <div class="sidebar-footer">
+                <span class="status-dot"></span>
+                <span class="sidebar-footer-text">System running smoothly</span>
+            </div>
+        </aside>
+
+        <div class="admin-main">
+            <nav class="navbar admin-navbar navbar-expand bg-white">
+                <div class="container-fluid px-3 px-lg-4">
+                    <button class="sidebar-toggle" type="button" data-sidebar-toggle aria-controls="adminSidebar" aria-expanded="true" aria-label="Toggle sidebar">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                    <form class="d-none d-md-flex ms-3 flex-grow-1" method="get" asp-page="/Admin/Results/Index" role="search">
+                        <input class="form-control search-input" name="search" type="search" placeholder="Search exams, users, results" aria-label="Search">
+                    </form>
+
+                    <div class="navbar-actions ms-auto">
+                        <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label="Switch color theme" title="Switch color theme">
+                            <i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i>
+                        </button>
+
+                        @if (isAdmin)
+                        {
+                            @await Component.InvokeAsync("Notifications")
+                        }
+
+                        <div class="dropdown">
+                            <button class="profile-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img class="avatar-img avatar-sm" src="@avatar" alt="@displayName">
+                                <span class="profile-name d-none d-sm-inline">@displayName</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" asp-page="@(isAdmin ? "/Admin/Dashboard/Index" : "/Student/Profile/Index")">Workspace</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form method="post" asp-page="/Account/Logout">
+                                        <button class="dropdown-item" type="submit">Sign out</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="dashboard-content">
+                <div class="container-fluid px-3 px-lg-4 py-4">
+                    @if (TempData["Toast"] is string toast)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi bi-check-circle" aria-hidden="true"></i> @toast
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    @RenderBody()
+                </div>
+            </main>
+
+            <footer class="admin-footer">
+                <div class="container-fluid px-3 px-lg-4">
+                    <span>Copyright 2026 MCQ System.</span>
+                    <span>Built with adminHMD Bootstrap 5 assets.</span>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        window.adminHMDUser = { name: "@displayName", workspace: "@(isAdmin ? "Admin Workspace" : "Student Portal")", avatar: "@avatar" };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/adminHMD/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/adminHMD/assets/js/main.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

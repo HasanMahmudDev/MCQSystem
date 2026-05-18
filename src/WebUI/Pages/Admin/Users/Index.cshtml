@@ -1,0 +1,98 @@
+@page
+@using MCQSystem.Shared
+@model MCQSystem.WebUI.Pages.Admin.Users.IndexModel
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<div class="page-heading">
+    <div class="page-heading-copy">
+        <span class="page-icon"><i class="bi bi-people" aria-hidden="true"></i></span>
+        <div>
+            <p class="eyebrow mb-1">Identity</p>
+            <h1 class="h3 mb-1">Users</h1>
+            <p class="text-muted mb-0">Create accounts, review roles, and manage access status.</p>
+        </div>
+    </div>
+</div>
+
+<section class="row g-3">
+    <div class="col-12 col-xl-4">
+        <form method="post" asp-page-handler="Create" class="panel needs-validation" novalidate>
+            <div class="panel-header">
+                <div>
+                    <h2 class="h5 mb-1 section-title"><i class="bi bi-person-plus" aria-hidden="true"></i><span>Add User</span></h2>
+                    <p class="text-muted mb-0">Create admin or student accounts.</p>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Input.FullName"></label>
+                <input class="form-control" asp-for="Input.FullName" required />
+                <span class="text-danger small" asp-validation-for="Input.FullName"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Input.Email"></label>
+                <input class="form-control" asp-for="Input.Email" type="email" required />
+                <span class="text-danger small" asp-validation-for="Input.Email"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Input.Password"></label>
+                <input class="form-control" asp-for="Input.Password" type="password" minlength="6" required />
+                <span class="text-danger small" asp-validation-for="Input.Password"></span>
+            </div>
+            <div class="mb-4">
+                <label class="form-label" asp-for="Input.Role"></label>
+                <select class="form-select" asp-for="Input.Role">
+                    <option value="@AppRoles.Student">Student</option>
+                    <option value="@AppRoles.Admin">Admin</option>
+                </select>
+            </div>
+            <button class="btn btn-primary w-100" type="submit"><i class="bi bi-person-plus" aria-hidden="true"></i> Create User</button>
+        </form>
+    </div>
+    <div class="col-12 col-xl-8">
+        <section class="panel">
+            <div class="panel-header">
+                <div>
+                    <h2 class="h5 mb-1 section-title"><i class="bi bi-table" aria-hidden="true"></i><span>User Directory</span></h2>
+                    <p class="text-muted mb-0">@Model.Items.Count users on this page.</p>
+                </div>
+                <form method="get"><input class="form-control form-control-sm table-search" asp-for="Search" type="search" placeholder="Search users" /></form>
+            </div>
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead><tr><th>User</th><th>Roles</th><th>Status</th><th>Last Login</th><th class="text-end">Action</th></tr></thead>
+                    <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <img class="avatar-img avatar-sm" src="~/adminHMD/assets/images/avatar/avatar-1.jpg" alt="@item.FullName">
+                                    <div>
+                                        <p class="fw-semibold mb-0">@item.FullName</p>
+                                        <p class="text-muted small mb-0">@item.Email</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@string.Join(", ", item.Roles)</td>
+                            <td><span class="badge @(item.IsActive ? "text-bg-success" : "text-bg-secondary")">@(item.IsActive ? "Active" : "Disabled")</span></td>
+                            <td>@(item.LastLoginAtUtc?.ToLocalTime().ToString("MMM dd, yyyy HH:mm") ?? "Never")</td>
+                            <td class="text-end">
+                                <form method="post" asp-page-handler="Toggle" asp-route-id="@item.Id" class="d-inline" data-confirm="Change this user's active status?">
+                                    <button class="btn btn-light btn-sm" type="submit"><i class="bi @(item.IsActive ? "bi-pause-circle" : "bi-play-circle")" aria-hidden="true"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+            <partial name="_Pagination" model="(Model.PageNumber, Model.TotalPages, Model.Search, (string?)null)" />
+        </section>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

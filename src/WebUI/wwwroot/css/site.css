@@ -1,0 +1,43 @@
+.mcq-option {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 8px;
+  padding: .85rem 1rem;
+  transition: border-color .15s ease, background .15s ease;
+}
+
+.mcq-option:has(input:checked) {
+  border-color: var(--bs-primary);
+  background: rgba(var(--bs-primary-rgb), .08);
+}
+
+.timer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  min-width: 128px;
+  justify-content: center;
+  border-radius: 999px;
+  padding: .55rem .85rem;
+  background: var(--bs-dark);
+  color: var(--bs-white);
+  font-weight: 700;
+}
+
+.result-score {
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: 1;
+  font-weight: 800;
+}
+
+.mini-stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .75rem 0;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.mini-stat:last-child {
+  border-bottom: 0;
+}

@@ -1,0 +1,21 @@
+@model IReadOnlyList<MCQSystem.Application.DTOs.ActivityDto>
+
+@if (Model.Count > 0)
+{
+    <div class="dropdown">
+        <button class="icon-button" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications">
+            <span class="notification-dot"></span>
+            <i class="bi bi-bell" aria-hidden="true"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end notification-menu">
+            <div class="dropdown-header fw-bold text-body">Recent Activity</div>
+            @foreach (var activity in Model)
+            {
+                <a class="dropdown-item" asp-page="/Admin/Results/Index">
+                    <span class="notification-title">@activity.Title</span>
+                    <span class="notification-time">@activity.Description</span>
+                </a>
+            }
+        </div>
+    </div>
+}

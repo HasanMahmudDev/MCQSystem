@@ -1,0 +1,85 @@
+@page
+@model MCQSystem.WebUI.Pages.Admin.Analytics.IndexModel
+@{
+    ViewData["Title"] = "Analytics";
+}
+
+<div class="page-heading">
+    <div class="page-heading-copy">
+        <span class="page-icon"><i class="bi bi-bar-chart-line" aria-hidden="true"></i></span>
+        <div>
+            <p class="eyebrow mb-1">Insights</p>
+            <h1 class="h3 mb-1">Analytics</h1>
+            <p class="text-muted mb-0">Track submission volume, average performance, and leaderboard movement.</p>
+        </div>
+    </div>
+</div>
+
+<section class="row g-3">
+    <div class="col-12 col-xl-8">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <h2 class="h5 mb-1 section-title"><i class="bi bi-bar-chart-line" aria-hidden="true"></i><span>Submission Trend</span></h2>
+                    <p class="text-muted mb-0">Monthly exam submissions using adminHMD chart components.</p>
+                </div>
+            </div>
+            <div class="chart-bars" aria-label="Submission trend chart">
+                @foreach (var point in Model.Dashboard.SubmissionTrend)
+                {
+                    <div class="chart-column @point.BarClass"><span></span><small>@point.Label (@point.Value)</small></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-xl-4">
+        <div class="panel h-100">
+            <h2 class="h5 mb-3 section-title"><i class="bi bi-pie-chart" aria-hidden="true"></i><span>Pass Rate</span></h2>
+            @{
+                var passRate = Model.Dashboard.ResultsCount == 0
+                    ? 0
+                    : Math.Round(Model.Dashboard.RecentResults.Count(x => x.Passed) / (double)Math.Max(1, Model.Dashboard.RecentResults.Count) * 100);
+            }
+            <div class="donut-chart mx-auto"><span>@passRate%</span></div>
+            <div class="legend-list mt-4">
+                <div><span class="legend-dot bg-success"></span>Passed<strong>@Model.Dashboard.RecentResults.Count(x => x.Passed)</strong></div>
+                <div><span class="legend-dot bg-danger"></span>Failed<strong>@Model.Dashboard.RecentResults.Count(x => !x.Passed)</strong></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="row g-3 mt-1">
+    <div class="col-12 col-xl-8">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <h2 class="h5 mb-1 section-title"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i><span>Score Distribution</span></h2>
+                    <p class="text-muted mb-0">Recent result percentages visualized with adminHMD progress components.</p>
+                </div>
+            </div>
+            @foreach (var result in Model.Dashboard.RecentResults)
+            {
+                var width = Math.Max(0, Math.Min(100, result.Percentage));
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span class="fw-semibold">@result.UserName</span>
+                        <span>@result.Percentage%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar @(result.Passed ? "bg-success" : "bg-danger")" role="progressbar" style="width:@width%" aria-valuenow="@width" aria-valuemin="0" aria-valuemax="100">@result.ExamTitle</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-12 col-xl-4">
+        <div class="panel h-100">
+            <h2 class="h5 mb-3 section-title"><i class="bi bi-activity" aria-hidden="true"></i><span>System Health</span></h2>
+            <div class="mini-stat"><span>Published exams</span><strong>@Model.Dashboard.PublishedExams</strong></div>
+            <div class="mini-stat"><span>Question bank</span><strong>@Model.Dashboard.QuestionCount</strong></div>
+            <div class="mini-stat"><span>Total submissions</span><strong>@Model.Dashboard.ResultsCount</strong></div>
+            <div class="mini-stat"><span>Average score</span><strong>@Model.Dashboard.AverageScore%</strong></div>
+        </div>
+    </div>
+</section>

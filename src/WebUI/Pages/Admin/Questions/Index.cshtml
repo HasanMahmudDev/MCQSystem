@@ -1,0 +1,135 @@
+@page
+@model MCQSystem.WebUI.Pages.Admin.Questions.IndexModel
+@{
+    ViewData["Title"] = "Manage Questions";
+}
+
+<div class="page-heading">
+    <div class="page-heading-copy">
+        <span class="page-icon"><i class="bi bi-question-circle" aria-hidden="true"></i></span>
+        <div>
+            <p class="eyebrow mb-1">MCQ Bank</p>
+            <h1 class="h3 mb-1">Manage Questions</h1>
+            <p class="text-muted mb-0">Create four-option MCQs with difficulty, marks, negative marks, and explanations.</p>
+        </div>
+    </div>
+</div>
+
+<section class="row g-3">
+    <div class="col-12 col-xl-5">
+        <form method="post" asp-page-handler="Save" class="panel needs-validation" novalidate>
+            <input type="hidden" asp-for="Input.Id" />
+            <div class="panel-header">
+                <div>
+                    <h2 class="h5 mb-1 section-title"><i class="bi bi-ui-checks-grid" aria-hidden="true"></i><span>@(string.IsNullOrWhiteSpace(Model.Input.Id) ? "Create Question" : "Update Question")</span></h2>
+                    <p class="text-muted mb-0">Every question must include exactly four options.</p>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-md-6">
+                    <label class="form-label" asp-for="Input.ExamId"></label>
+                    <select class="form-select" asp-for="Input.ExamId" required>
+                        @foreach (var exam in Model.Exams)
+                        {
+                            <option value="@exam.Id">@exam.Title</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" asp-for="Input.CategoryId"></label>
+                    <select class="form-select" asp-for="Input.CategoryId" required>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label class="form-label" asp-for="Input.Text"></label>
+                <textarea class="form-control" asp-for="Input.Text" rows="4" required></textarea>
+                <span class="text-danger small" asp-validation-for="Input.Text"></span>
+            </div>
+            <div class="row g-2">
+                <div class="col-md-6"><label class="form-label" asp-for="Input.OptionA"></label><input class="form-control" asp-for="Input.OptionA" required /></div>
+                <div class="col-md-6"><label class="form-label" asp-for="Input.OptionB"></label><input class="form-control" asp-for="Input.OptionB" required /></div>
+                <div class="col-md-6"><label class="form-label" asp-for="Input.OptionC"></label><input class="form-control" asp-for="Input.OptionC" required /></div>
+                <div class="col-md-6"><label class="form-label" asp-for="Input.OptionD"></label><input class="form-control" asp-for="Input.OptionD" required /></div>
+            </div>
+            <div class="row g-2 mt-1">
+                <div class="col-md-4">
+                    <label class="form-label" asp-for="Input.CorrectOptionKey"></label>
+                    <select class="form-select" asp-for="Input.CorrectOptionKey">
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" asp-for="Input.Difficulty"></label>
+                    <select class="form-select" asp-for="Input.Difficulty" asp-items="Html.GetEnumSelectList<DifficultyLevel>()"></select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" asp-for="Input.Marks"></label>
+                    <input class="form-control" asp-for="Input.Marks" type="number" step="0.25" min="0.25" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" asp-for="Input.NegativeMarks"></label>
+                    <input class="form-control" asp-for="Input.NegativeMarks" type="number" step="0.25" min="0" />
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label class="form-label" asp-for="Input.Explanation"></label>
+                <textarea class="form-control" asp-for="Input.Explanation" rows="3"></textarea>
+            </div>
+            <div class="form-check mb-4">
+                <input class="form-check-input" asp-for="Input.IsActive" />
+                <label class="form-check-label" asp-for="Input.IsActive"></label>
+            </div>
+            <button class="btn btn-primary w-100" type="submit"><i class="bi bi-save" aria-hidden="true"></i> Save Question</button>
+        </form>
+    </div>
+    <div class="col-12 col-xl-7">
+        <section class="panel">
+            <div class="panel-header">
+                <div>
+                    <h2 class="h5 mb-1 section-title"><i class="bi bi-table" aria-hidden="true"></i><span>Question List</span></h2>
+                    <p class="text-muted mb-0">@Model.Items.Count questions found.</p>
+                </div>
+                <form method="get"><input class="form-control form-control-sm table-search" asp-for="Search" type="search" placeholder="Search questions" /></form>
+            </div>
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead><tr><th>Question</th><th>Exam</th><th>Answer</th><th>Marks</th><th>Status</th><th class="text-end">Action</th></tr></thead>
+                    <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>
+                                <p class="fw-semibold mb-0">@item.Text</p>
+                                <p class="text-muted small mb-0">@Model.CategoryName(item.CategoryId) · @item.Difficulty</p>
+                            </td>
+                            <td>@Model.ExamTitle(item.ExamId)</td>
+                            <td><span class="badge text-bg-primary">@item.CorrectOptionKey</span></td>
+                            <td>@item.Marks / -@item.NegativeMarks</td>
+                            <td><span class="badge @(item.IsActive ? "text-bg-success" : "text-bg-secondary")">@(item.IsActive ? "Active" : "Inactive")</span></td>
+                            <td class="text-end">
+                                <a class="btn btn-light btn-sm" asp-route-editId="@item.Id"><i class="bi bi-pencil" aria-hidden="true"></i></a>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline" data-confirm="Delete this question?">
+                                    <button class="btn btn-light btn-sm" type="submit"><i class="bi bi-trash" aria-hidden="true"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+            <partial name="_Pagination" model="(Model.PageNumber, Model.TotalPages, Model.Search, Model.Input.Id)" />
+        </section>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

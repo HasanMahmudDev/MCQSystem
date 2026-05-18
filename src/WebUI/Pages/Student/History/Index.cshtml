@@ -1,0 +1,43 @@
+@page
+@model MCQSystem.WebUI.Pages.Student.History.IndexModel
+@{
+    ViewData["Title"] = "Exam History";
+}
+
+<div class="page-heading">
+    <div class="page-heading-copy">
+        <span class="page-icon"><i class="bi bi-clock-history" aria-hidden="true"></i></span>
+        <div>
+            <p class="eyebrow mb-1">Student</p>
+            <h1 class="h3 mb-1">Exam History</h1>
+            <p class="text-muted mb-0">Review previous submissions and pass/fail status.</p>
+        </div>
+    </div>
+</div>
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2 class="h5 mb-1 section-title"><i class="bi bi-table" aria-hidden="true"></i><span>Submission History</span></h2>
+            <p class="text-muted mb-0">@Model.Results.Count results found.</p>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead><tr><th>Exam</th><th>Score</th><th>Correct</th><th>Status</th><th>Submitted</th><th class="text-end">Action</th></tr></thead>
+            <tbody>
+            @foreach (var item in Model.Results)
+            {
+                <tr>
+                    <td class="fw-semibold">@item.ExamTitle</td>
+                    <td>@item.ObtainedMarks / @item.TotalMarks (@item.Percentage%)</td>
+                    <td>@item.CorrectAnswers / @item.TotalQuestions</td>
+                    <td><span class="badge @(item.Passed ? "text-bg-success" : "text-bg-danger")">@(item.Passed ? "Passed" : "Failed")</span></td>
+                    <td>@item.SubmittedAtUtc.ToLocalTime().ToString("MMM dd, yyyy HH:mm")</td>
+                    <td class="text-end"><a class="btn btn-light btn-sm" asp-page="/Student/Exams/Result" asp-route-resultId="@item.Id">View</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -1,0 +1,11 @@
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Shared\bin\Debug\net10.0\MCQSystem.Shared.deps.json
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Shared\bin\Debug\net10.0\MCQSystem.Shared.dll
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Shared\bin\Debug\net10.0\MCQSystem.Shared.pdb
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Shared\obj\Debug\net10.0\MCQSystem.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Shared\obj\Debug\net10.0\MCQSystem.Shared.AssemblyInfoInputs.cache
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Shared\obj\Debug\net10.0\MCQSystem.Shared.AssemblyInfo.cs
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Shared\obj\Debug\net10.0\MCQSystem.Shared.csproj.CoreCompileInputs.cache
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Shared\obj\Debug\net10.0\MCQSystem.Shared.dll
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Shared\obj\Debug\net10.0\refint\MCQSystem.Shared.dll
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Shared\obj\Debug\net10.0\MCQSystem.Shared.pdb
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Shared\obj\Debug\net10.0\ref\MCQSystem.Shared.dll

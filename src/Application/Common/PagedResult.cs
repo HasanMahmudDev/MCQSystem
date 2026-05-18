@@ -1,0 +1,18 @@
+namespace MCQSystem.Application.Common;
+
+public sealed class PagedResult<T>
+{
+    public IReadOnlyList<T> Items { get; init; } = [];
+
+    public int PageNumber { get; init; }
+
+    public int PageSize { get; init; }
+
+    public long TotalCount { get; init; }
+
+    public int TotalPages => PageSize == 0 ? 0 : (int)Math.Ceiling(TotalCount / (double)PageSize);
+
+    public bool HasPrevious => PageNumber > 1;
+
+    public bool HasNext => PageNumber < TotalPages;
+}

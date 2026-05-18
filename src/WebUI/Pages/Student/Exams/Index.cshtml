@@ -1,0 +1,47 @@
+@page
+@model MCQSystem.WebUI.Pages.Student.Exams.IndexModel
+@{
+    ViewData["Title"] = "Exam List";
+}
+
+<div class="page-heading">
+    <div class="page-heading-copy">
+        <span class="page-icon"><i class="bi bi-ui-checks-grid" aria-hidden="true"></i></span>
+        <div>
+            <p class="eyebrow mb-1">Student</p>
+            <h1 class="h3 mb-1">Available Exams</h1>
+            <p class="text-muted mb-0">Choose an exam, start the timer, and submit your MCQ answers.</p>
+        </div>
+    </div>
+</div>
+
+<section class="row g-3">
+    @foreach (var exam in Model.Exams)
+    {
+        <div class="col-12 col-lg-6 col-xl-4">
+            <article class="panel h-100">
+                <div class="panel-header">
+                    <div>
+                        <h2 class="h5 mb-1 section-title"><i class="bi bi-journal-check" aria-hidden="true"></i><span>@exam.Title</span></h2>
+                        <p class="text-muted mb-0">@exam.CategoryName</p>
+                    </div>
+                    <span class="badge text-bg-success">Open</span>
+                </div>
+                <p>@exam.Description</p>
+                <div class="mini-stat"><span>Duration</span><strong>@exam.DurationMinutes min</strong></div>
+                <div class="mini-stat"><span>Questions</span><strong>@exam.QuestionCount</strong></div>
+                <div class="mini-stat"><span>Pass marks</span><strong>@exam.PassMarks / @exam.TotalMarks</strong></div>
+                <div class="d-grid mt-4">
+                    <a class="btn btn-primary" asp-page="/Student/Exams/Start" asp-route-examId="@exam.Id"><i class="bi bi-play-circle" aria-hidden="true"></i> Start Exam</a>
+                </div>
+            </article>
+        </div>
+    }
+</section>
+
+@if (Model.Exams.Count == 0)
+{
+    <section class="panel">
+        <p class="mb-0">No exams are currently available.</p>
+    </section>
+}

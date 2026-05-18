@@ -1,0 +1,48 @@
+@page "{resultId}"
+@model MCQSystem.WebUI.Pages.Student.Exams.ResultModel
+@{
+    ViewData["Title"] = "Exam Result";
+}
+
+@if (Model.Result is null)
+{
+    <section class="panel">
+        <p class="mb-0">Result was not found.</p>
+    </section>
+}
+else
+{
+    <div class="page-heading">
+        <div class="page-heading-copy">
+            <span class="page-icon"><i class="bi bi-award" aria-hidden="true"></i></span>
+            <div>
+                <p class="eyebrow mb-1">Result</p>
+                <h1 class="h3 mb-1">@Model.Result.ExamTitle</h1>
+                <p class="text-muted mb-0">Submitted @Model.Result.SubmittedAtUtc.ToLocalTime().ToString("MMM dd, yyyy HH:mm")</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="row g-3">
+        <div class="col-12 col-xl-4">
+            <article class="metric-card @(Model.Result.Passed ? "metric-success" : "metric-danger")">
+                <div class="metric-top"><span class="metric-label">Final Score</span><span class="metric-icon"><i class="bi bi-award" aria-hidden="true"></i></span></div>
+                <div class="result-score">@Model.Result.Percentage%</div>
+                <div class="metric-meta"><span>@Model.Result.ObtainedMarks / @Model.Result.TotalMarks</span><span>@(Model.Result.Passed ? "Passed" : "Failed")</span></div>
+            </article>
+        </div>
+        <div class="col-12 col-xl-8">
+            <div class="panel h-100">
+                <h2 class="h5 mb-3 section-title"><i class="bi bi-clipboard-check" aria-hidden="true"></i><span>Breakdown</span></h2>
+                <div class="mini-stat"><span>Total questions</span><strong>@Model.Result.TotalQuestions</strong></div>
+                <div class="mini-stat"><span>Attempted</span><strong>@Model.Result.Attempted</strong></div>
+                <div class="mini-stat"><span>Correct answers</span><strong>@Model.Result.CorrectAnswers</strong></div>
+                <div class="mini-stat"><span>Wrong answers</span><strong>@Model.Result.WrongAnswers</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="d-flex justify-content-end mt-3">
+        <a class="btn btn-primary" asp-page="/Student/History/Index"><i class="bi bi-clock-history" aria-hidden="true"></i> View History</a>
+    </div>
+}
