@@ -15,3 +15,4 @@ D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Application\obj\Debug\
 D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Application\obj\Debug\net10.0\refint\MCQSystem.Application.dll
 D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Application\obj\Debug\net10.0\MCQSystem.Application.pdb
 D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Application\obj\Debug\net10.0\ref\MCQSystem.Application.dll
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Application\obj\Debug\net10.0\MCQSystem.Application.sourcelink.json

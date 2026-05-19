@@ -17,3 +17,4 @@ D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Infrastructure\obj\Deb
 D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Infrastructure\obj\Debug\net10.0\refint\MCQSystem.Infrastructure.dll
 D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Infrastructure\obj\Debug\net10.0\MCQSystem.Infrastructure.pdb
 D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Infrastructure\obj\Debug\net10.0\ref\MCQSystem.Infrastructure.dll
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Infrastructure\obj\Debug\net10.0\MCQSystem.Infrastructure.sourcelink.json

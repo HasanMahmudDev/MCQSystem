@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\04_PinTechHasan\\01_Projects\\ProjectsIdea\\MCQSystem\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{793BB971-D1AA-334D-70D6-324549CD3C23}|src\\WebUI\\MCQSystem.WebUI.csproj|d:\\04_pintechhasan\\01_projects\\projectsidea\\mcqsystem\\src\\webui\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{793BB971-D1AA-334D-70D6-324549CD3C23}|src\\WebUI\\MCQSystem.WebUI.csproj|solutionrelative:src\\webui\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +27,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\04_PinTechHasan\\01_Projects\\ProjectsIdea\\MCQSystem\\src\\WebUI\\appsettings.json",
+              "RelativeDocumentMoniker": "src\\WebUI\\appsettings.json",
+              "ToolTip": "D:\\04_PinTechHasan\\01_Projects\\ProjectsIdea\\MCQSystem\\src\\WebUI\\appsettings.json",
+              "RelativeToolTip": "src\\WebUI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-19T03:58:18.026Z",
+              "EditorCaption": ""
             }
           ]
         }

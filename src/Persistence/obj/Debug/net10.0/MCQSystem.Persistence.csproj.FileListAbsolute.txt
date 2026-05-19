@@ -17,3 +17,4 @@ D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Persistence\obj\Debug\
 D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Persistence\obj\Debug\net10.0\refint\MCQSystem.Persistence.dll
 D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Persistence\obj\Debug\net10.0\MCQSystem.Persistence.pdb
 D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Persistence\obj\Debug\net10.0\ref\MCQSystem.Persistence.dll
+D:\04_PinTechHasan\01_Projects\ProjectsIdea\MCQSystem\src\Persistence\obj\Debug\net10.0\MCQSystem.Persistence.sourcelink.json
