@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MCQSystem.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+729518b67a6f99b526c08050752f12383c351c1b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a94f9b76d4c51a833a6c7fa80c4ec74fe1c07c2f")]
 [assembly: System.Reflection.AssemblyProductAttribute("MCQSystem.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MCQSystem.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
